@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: API de Clientes
+  description: Una API para administrar clientes
+  version: 1.0.0
+
+servers:
+  - url: http://localhost/API/procesar_formulario.php 
+
+paths:
+  /clientes:
+    get:
+      summary: Obtener todos los clientes
+      responses:
+        '200':
+          description: Lista de clientes
+      tags:
+        - Clientes
+
+    post:
+      summary: Crear un nuevo cliente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                apellido:
+                  type: string
+                direccion:
+                  type: string
+              required:
+                - nombre
+                - apellido
+                - direccion
+      responses:
+        '201':
+          description: Cliente creado con éxito
+        '400':
+          description: Error en la solicitud
+      tags:
+        - Clientes
+
+  /clientes/{id}:
+    put:
+      summary: Actualizar un cliente existente
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                apellido:
+                  type: string
+                direccion:
+                  type: string
+              required:
+                - nombre
+                - apellido
+                - direccion
+      responses:
+        '200':
+          description: Cliente actualizado con éxito
+        '404':
+          description: Cliente no encontrado
+        '400':
+          description: Error en la solicitud
+      tags:
+        - Clientes
+
+    delete:
+      summary: Eliminar un cliente
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Cliente eliminado con éxito
+        '404':
+          description: Cliente no encontrado
+      tags:
+        - Clientes
+
+tags:
+  - name: Clientes
